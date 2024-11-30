@@ -1,9 +1,0 @@
-primary_video_group,merged_video_pairs,combined_average_performance
-video(5),"video(5),video(9), video(5),video(4)",1.1791917500000002
-video(0),"video(0),video(5), video(0),video(4)",0.71496625
-video(9),"video(9),video(4)",0.5622705
-video(6),"video(6),video(2), video(6),video(7), video(6),video(0), video(6),video(5), video(6),video(9), video(6),video(4)",0.45444233333333334
-video(7),"video(7),video(0), video(7),video(5), video(7),video(9), video(7),video(4)",0.39112975000000005
-video(8),"video(8),video(6), video(8),video(2), video(8),video(7), video(8),video(5), video(8),video(9), video(8),video(4)",0.3854545
-video(2),"video(2),video(7), video(2),video(0), video(2),video(5), video(2),video(9), video(2),video(4)",0.36590639999999997
-video(3),"video(3),video(8), video(3),video(6), video(3),video(2), video(3),video(7), video(3),video(5), video(3),video(9), video(3),video(4)",0.2735163571428571
