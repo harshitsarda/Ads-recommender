@@ -1,7 +1,12 @@
 
 README for Face Extraction and Performance Score Dataset Creation
 
-This project is just run on 10 videos because of computational constraints. Please take into account
+This project is just run on 10 videos because of computational constraints. Please take into account.
+
+
+
+
+
 **Overview**
 This project processes a set of videos stored in the videos directory to extract the most prominent face from each video, saves these faces as images, and creates a dataset with the average performance scores associated with the faces. The project uses a file naming convention like video_<index>_perf_<performance>.mp4 to identify and process the videos.
 
