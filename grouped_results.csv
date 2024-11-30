@@ -1,0 +1,5 @@
+primary_video_group,merged_video_pairs,combined_average_performance
+video(5),"video(5),video(4)",1.3182005
+video(7),"video(7),video(5), video(7),video(4)",0.67118175
+video(6),"video(6),video(2), video(6),video(7), video(6),video(5), video(6),video(4)",0.537321375
+video(2),"video(2),video(7), video(2),video(5), video(2),video(4)",0.5036788333333334
