@@ -1,98 +1,86 @@
-# Ads-recommender
-Video Embedding and Similarity Analysis
-This project processes videos to extract facial embeddings, computes similarity scores between embeddings, and analyzes their performance scores to identify clusters of related videos based on similarity.
 
-Table of Contents
+README for Face Extraction and Performance Score Dataset Creation
 Overview
-Requirements
-Workflow
-Step 1: Download Videos
-Step 2: Extract Embeddings
-Step 3: Compute Similarity Scores
-Step 4: Group Similar Videos
-Outputs
-How to Run
-Future Enhancements
-Overview
-This project automates the process of:
+This project processes a set of videos stored in the videos directory to extract the most prominent face from each video, saves these faces as images, and creates a dataset with the average performance scores associated with the faces. The project uses a file naming convention like video_<index>_perf_<performance>.mp4 to identify and process the videos.
 
-Downloading videos from a dataset.
-Detecting faces in each video and extracting their embeddings.
-Comparing embeddings to compute cosine similarity scores.
-Aggregating similar videos into groups and calculating their average performance scores.
-Requirements
-Install the required Python libraries:
+Output
+Extracted Faces:
+
+Saved in the faces directory.
+Images are named as face_<index>.jpg.
+Final Dataset:
+
+Saved as face_avg_scores_dataset.csv.
+Contains two columns:
+Image: Path to the extracted face image.
+Average Score: The performance score associated with the face.
+Prerequisites
+Python 3.8+
+Required libraries:
+cv2 (OpenCV)
+dlib
+pandas
+os
+re
+To install the dependencies, run:
 
 bash
 Copy code
-pip install pandas numpy opencv-python-headless dlib requests sklearn
-You will also need a dataset in CSV format containing video URLs and performance scores, with columns:
+**pip install opencv-python dlib pandas**
+Project Structure
+Directories:
+videos/: Directory containing video files in the format video_<index>_perf_<performance>.mp4.
+faces/: Directory where extracted face images will be stored (auto-created).
+Files:
+getfaces.py: Script to extract faces and create the dataset.
+grouped_results.csv: Input CSV containing video groupings and average performance scores.
+face_avg_scores_dataset.csv: Output CSV with face image paths and average performance scores.
+How It Works
+Input Video Naming Convention
+The videos must follow this format:
 
-Performance
-Video URL
-Workflow
-Step 1: Download Videos
-Videos are downloaded from a dataset containing URLs. Each video is saved with a filename derived from its row index and performance score.
-
-Script: download_videos.py
-
-Input: CSV file with Performance and Video URL.
-
-Output: Videos saved in the videos/ directory.
-
-Step 2: Extract Embeddings
-The embeddings are generated for the most prominent face detected in each video.
-
-Script: generate_embeddings.py
-
-Input: Videos in the videos/ directory.
-
-Output: .npy files (embeddings) saved in the embeddings/ directory.
-
-Step 3: Compute Similarity Scores
-Cosine similarity is calculated between all pairs of embeddings. Pairs with a similarity score above a defined threshold (e.g., 95%) are stored, along with the average performance score of the videos in the pair.
-
-Script: compute_similarity.py
-
-Input: Embeddings from the embeddings/ directory.
-
-Output: similar_pairs_with_avg_performance.csv
-
-Step 4: Group Similar Videos
-Videos sharing a common reference (e.g., video(3)) are grouped into clusters. For each group:
-
-All associated video pairs are combined into a single row.
-The average performance score of the group is calculated.
-Script: group_results.py
-
-Input: similar_pairs_with_avg_performance.csv.
-
-Output: grouped_results.csv.
-
-Outputs
-videos/: Directory containing the downloaded videos.
-embeddings/: Directory containing .npy files for each video embedding.
-similar_pairs_with_avg_performance.csv: File containing pairs of videos with similarity scores above the threshold.
-grouped_results.csv: File containing grouped video clusters and their average performance scores.
-How to Run
-Download Videos:
-bash
+php
 Copy code
-python download_videos.py
-Generate Embeddings:
-bash
-Copy code
-python generate_embeddings.py
-Compute Similarity Scores:
-bash
-Copy code
-python compute_similarity.py
-Group Similar Videos:
-bash
-Copy code
-python group_results.py
-Future Enhancements
-Advanced Face Detection: Integrate advanced models for multi-face detection in videos.
-Dynamic Thresholding: Use dynamic thresholds based on dataset statistics for similarity score computation.
-Visualization: Add visualizations for clusters of similar videos.
-Performance Analysis: Extend analysis with more sophisticated metrics.
+video_<index>_perf_<performance>.mp4
+Examples:
+
+video_0_perf_0.111732.mp4
+video_5_perf_1.796113.mp4
+Script Workflow
+Read Grouped Results:
+
+The script reads the grouped_results.csv file, which contains information about video groupings and their average performance scores.
+Find Matching Videos:
+
+Based on the video index (e.g., 3 from video(3)), the script finds the corresponding video file in the videos directory.
+Extract Prominent Face:
+
+For each video, the most prominent face is detected using dlib.
+The detected face is saved as face_<index>.jpg in the faces/ directory.
+Create Dataset:
+
+Combines the extracted face image paths with their average performance scores into face_avg_scores_dataset.csv.
+**How to Run
+Step 1: Prepare Files**
+Place all videos in the videos/ directory.
+Ensure grouped_results.csv is in the root folder and contains the following columns:
+primary_video_group: Video index (e.g., video(3)).
+combined_average_performance: Average performance score.
+**Step 2: Run the Script
+Run the Python script:**
+
+**python getfaces.py**
+**Step 3: Output**
+Extracted face images will be saved in the faces/ directory.
+The final dataset face_avg_scores_dataset.csv will be created with the following format:
+**Image	Average Score
+faces/face_0.jpg	0.111732
+faces/face_5.jpg	1.796113
+faces/face_9.jpg	0.284253
+Example grouped_results.csv**
+An example of the input grouped_results.csv:
+
+**primary_video_group	combined_average_performance
+video(0)	0.111732
+video(5)	1.796113
+video(9)	0.284253**
